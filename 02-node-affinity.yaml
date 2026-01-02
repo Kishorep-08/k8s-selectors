@@ -12,10 +12,25 @@ spec:
                 operator: In
                 values:
                   - ssd
+              # - key: topology.kubernetes.io/zone
+              #   operator: In
+              #   values: 
+              #     - us-east-1b
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
               - key: topology.kubernetes.io/zone
                 operator: In
-                values: 
+                values:
                   - us-east-1b
+        - weight: 50
+          preference:
+          matchExpressions:
+            - key: topology.kubernetes.io/zone
+              operator: In
+              values:
+                - us-east-1d
   containers:
   - name: nginx
     image: nginx
