@@ -14,7 +14,8 @@ spec:
                   - ssd
               - key: topology.kubernetes.io/zone
                 operator: In
-                value: us-east-1b
+                values: 
+                  - us-east-1b
   containers:
   - name: nginx
     image: nginx
