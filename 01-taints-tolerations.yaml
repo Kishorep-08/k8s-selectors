@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-demo
+  # labels for deployment. These can be different from pod labels and selector. These are just for deployment identification
+  labels:
+    project: roboshop
+    environment: dev
+spec:
+  replicas: 10
+  # selector to identify pods managed by deployment
+  selector:
+    matchLabels:
+      project: roboshop
+      environment: dev
+  template:
+    metadata:
+      # pod template labels. Should match selector
+      labels:
+        project: roboshop
+        environment: dev
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: "ip-192-168-36-19.ec2.internal"
+      tolerations:
+        - key: "project"
+          operator: Equal
+          value: "roboshop"
+          effect: "NoSchedule"
+      containers:
+        - name: nginx
+          image: nginx:1.29.1
